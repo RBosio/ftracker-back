@@ -12,6 +12,8 @@ services:
       - ./:/app
     depends_on:
       - db
+    ports:
+      - ${PORT}:${PORT}
 
   db:
     container_name: db
@@ -23,3 +25,5 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - ./data:/var/lib/mysql
+    ports:
+      - 3306:3306
