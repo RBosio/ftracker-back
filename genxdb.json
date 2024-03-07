@@ -1,0 +1,62 @@
+{
+  "database": [
+    {
+      "name": "user",
+      "columns": [
+        {
+          "name": "id",
+          "type": "number"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "length": 20
+        },
+        {
+          "name": "surname",
+          "type": "string",
+          "length": 20
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "unique": true
+        },
+        {
+          "name": "password",
+          "type": "string"
+        }
+      ],
+      "primary": "id"
+    },
+    {
+      "name": "spent",
+      "columns": [
+        {
+          "name": "id",
+          "type": "number"
+        },
+        {
+          "name": "mount",
+          "type": "number"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "datetime",
+          "type": "Date",
+          "default": "CURRENT_TIMESTAMP"
+        }
+      ],
+      "primary": "id",
+      "relations": [
+        {
+          "table": "user",
+          "relation": "N-1"
+        }
+      ]
+    }
+  ]
+}
