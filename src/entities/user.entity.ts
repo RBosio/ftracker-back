@@ -21,4 +21,13 @@ export class User {
 
   @OneToMany(() => Spent, (spent) => spent.user)
   spents: Spent[]
+
+  constructor(user?: Partial<User>) {
+    this.id = user?.id
+    this.name = user?.name
+    this.surname = user?.name
+    this.email = user?.email
+    this.password = user?.password
+    this.spents = user?.spents
+  }
 }
