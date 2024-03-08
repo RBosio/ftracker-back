@@ -1,4 +1,10 @@
-import { BadRequestException, HttpException, HttpStatus, Injectable } from "@nestjs/common"
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from "@nestjs/common"
 import { CreateUserDto } from "./dto/create-user.dto"
 import { UpdateUserDto } from "./dto/update-user.dto"
 import { Repository } from "typeorm"
@@ -48,10 +54,6 @@ export class UserService {
         email,
       },
     })
-
-    if (!user) {
-      throw new HttpException("user not found", HttpStatus.NOT_FOUND)
-    }
 
     return user
   }

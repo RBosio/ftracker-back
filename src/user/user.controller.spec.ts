@@ -2,7 +2,6 @@ import { Test, TestingModule } from "@nestjs/testing"
 import { UserController } from "./user.controller"
 import { UserService } from "./user.service"
 import { User } from "src/entities/user.entity"
-import { CreateUserDto } from "./dto/create-user.dto"
 import { UpdateUserDto } from "./dto/update-user.dto"
 
 const userEntityList: User[] = [
@@ -32,8 +31,8 @@ const updateUser: User = new User({
 })
 
 describe("UserController", () => {
-  let controller: UserController
-  let service: UserService
+  let userController: UserController
+  let userService: UserService
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -42,7 +41,6 @@ describe("UserController", () => {
         {
           provide: UserService,
           useValue: {
-            create: jest.fn().mockResolvedValue(newUser),
             findAll: jest.fn().mockResolvedValue(userEntityList),
             findOne: jest.fn().mockResolvedValue(userEntityList[0]),
             update: jest.fn().mockResolvedValue(updateUser),
@@ -51,8 +49,8 @@ describe("UserController", () => {
       ],
     }).compile()
 
-    controller = module.get<UserController>(UserController)
-    service = module.get<UserService>(UserService)
+    userController = module.get<UserController>(UserController)
+    userService = module.get<UserService>(UserService)
   })
 
   it("should be defined", () => {
@@ -62,56 +60,27 @@ describe("UserController", () => {
 
   describe("getAll", () => {
     it("should return a user list", async () => {
-      const result = await controller.findAll()
+      const result = await userController.findAll()
 
       expect(result).toEqual(userEntityList)
-      expect(service.findAll).toHaveBeenCalledTimes(1)
+      expect(userService.findAll).toHaveBeenCalledTimes(1)
     })
   })
 
   describe("getOne", () => {
     it("should return a user", async () => {
-      const result = await controller.findOne("1")
+      const result = await userController.findOne("1")
 
       expect(result).toEqual(userEntityList[0])
       expect(result.id).toEqual(userEntityList[0].id)
-      expect(service.findOne).toHaveBeenCalledTimes(1)
-      expect(service.findOne).toHaveBeenCalledWith(1)
+      expect(userService.findOne).toHaveBeenCalledTimes(1)
+      expect(userService.findOne).toHaveBeenCalledWith(1)
     })
 
     it("should throw an exception", () => {
-      jest.spyOn(service, "findOne").mockRejectedValueOnce(new Error())
+      jest.spyOn(userService, "findOne").mockRejectedValueOnce(new Error())
 
-      expect(controller.findOne("2")).rejects.toThrow()
-    })
-  })
-
-  describe("create", () => {
-    it("should create a new user and return it", async () => {
-      const body: CreateUserDto = {
-        email: "fido@gmail.com",
-        name: "fidoo",
-        surname: "dido",
-        password: "1234",
-      }
-      const result = await controller.create(body)
-
-      expect(result).toEqual(newUser)
-      expect(service.create).toHaveBeenCalledTimes(1)
-      expect(service.create).toHaveBeenCalledWith(body)
-    })
-
-    it("should throw an exception", () => {
-      const body: CreateUserDto = {
-        email: "fido@gmail.com",
-        name: "fidoo",
-        surname: "dido",
-        password: "1234",
-      }
-
-      jest.spyOn(service, "create").mockRejectedValueOnce(new Error())
-
-      expect(controller.create(body)).rejects.toThrow()
+      expect(userController.findOne("2")).rejects.toThrow()
     })
   })
 
@@ -121,11 +90,11 @@ describe("UserController", () => {
         password: "newpassword",
       }
 
-      const response = await controller.update("1", body)
+      const response = await userController.update("1", body)
 
       expect(response).toEqual(updateUser)
-      expect(service.update).toHaveBeenCalledTimes(1)
-      expect(service.update).toHaveBeenCalledWith(1, body)
+      expect(userService.update).toHaveBeenCalledTimes(1)
+      expect(userService.update).toHaveBeenCalledWith(1, body)
     })
 
     it("should throw an exception", () => {
@@ -133,9 +102,9 @@ describe("UserController", () => {
         password: "newpassword",
       }
 
-      jest.spyOn(service, "update").mockRejectedValueOnce(new Error())
+      jest.spyOn(userService, "update").mockRejectedValueOnce(new Error())
 
-      expect(controller.update("2", body)).rejects.toThrow()
+      expect(userController.update("2", body)).rejects.toThrow()
     })
   })
 })
