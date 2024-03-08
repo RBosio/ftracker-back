@@ -75,8 +75,8 @@ describe("SpentController", () => {
   })
 
   describe("getAll", () => {
-    it("should return a spent list", async () => {
-      const result = await spentController.findAll()
+    it("should return a spent list of user", async () => {
+      const result = await spentController.findAll("1")
 
       expect(result).toEqual(spentList)
       expect(spentService.findAll).toHaveBeenCalledTimes(1)
@@ -84,7 +84,7 @@ describe("SpentController", () => {
 
     it("should return an empty array if not spent entities", async () => {
       jest.spyOn(spentService, "findAll").mockResolvedValueOnce([])
-      const result = await spentController.findAll()
+      const result = await spentController.findAll("2")
 
       expect(result).toEqual([])
       expect(spentService.findAll).toHaveBeenCalledTimes(1)
@@ -183,9 +183,7 @@ describe("SpentController", () => {
         .spyOn(spentService, "remove")
         .mockRejectedValueOnce(new NotFoundException())
 
-      expect(spentController.remove("2")).rejects.toThrow(
-        NotFoundException,
-      )
+      expect(spentController.remove("2")).rejects.toThrow(NotFoundException)
     })
   })
 })

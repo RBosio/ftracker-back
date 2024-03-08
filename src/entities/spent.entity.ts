@@ -13,7 +13,7 @@ export class Spent {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column()
+  @Column("decimal", { precision: 7, scale: 2 })
   mount: number
 
   @Column()
