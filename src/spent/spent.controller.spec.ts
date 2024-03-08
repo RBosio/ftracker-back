@@ -1,0 +1,20 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { SpentController } from './spent.controller';
+import { SpentService } from './spent.service';
+
+describe('SpentController', () => {
+  let controller: SpentController;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      controllers: [SpentController],
+      providers: [SpentService],
+    }).compile();
+
+    controller = module.get<SpentController>(SpentController);
+  });
+
+  it('should be defined', () => {
+    expect(controller).toBeDefined();
+  });
+});

@@ -25,7 +25,7 @@ export class User {
   constructor(user?: Partial<User>) {
     this.id = user?.id
     this.name = user?.name
-    this.surname = user?.name
+    this.surname = user?.surname
     this.email = user?.email
     this.password = user?.password
     this.spents = user?.spents
