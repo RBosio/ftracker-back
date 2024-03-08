@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  DeleteDateColumn,
+} from "typeorm"
 
 import { User } from "./user.entity"
 
@@ -18,4 +24,14 @@ export class Spent {
 
   @ManyToOne(() => User, (user) => user.spents)
   user: User
+
+  constructor(spent?: Partial<Spent>) {
+    this.id = spent?.id
+    this.mount = spent?.mount
+    this.description = spent?.description
+    this.user = spent?.user
+  }
+
+  @DeleteDateColumn()
+  deleted_at: Date
 }
