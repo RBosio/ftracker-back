@@ -23,18 +23,6 @@ import {
 @Controller("user")
 export class UserController {
   constructor(private readonly userService: UserService) {}
-
-  @Post()
-  @ApiOperation({ summary: "create user" })
-  @ApiResponse({
-    status: HttpStatus.CREATED,
-    description: "user created",
-  })
-  @ApiBody({ type: CreateUserDto })
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto)
-  }
-
   @Get()
   @ApiOperation({ summary: "get users" })
   @ApiResponse({
