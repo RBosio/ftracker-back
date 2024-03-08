@@ -38,7 +38,7 @@ export class SpentService {
   }
 
   async update(id: number, updateSpentDto: UpdateSpentDto): Promise<Spent> {
-    const spent = this.findOne(id)
+    const spent = await this.findOne(id)
 
     const spentUpdated = Object.assign(spent, updateSpentDto)
 
