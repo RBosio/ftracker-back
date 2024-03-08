@@ -6,7 +6,7 @@ import { User } from "src/entities/user.entity"
 import { Repository } from "typeorm"
 import { CreateSpentDto } from "./dto/create-spent.dto"
 import { UpdateSpentDto } from "./dto/update-spent.dto"
-import { BadRequestException, NotFoundException } from "@nestjs/common"
+import { NotFoundException } from "@nestjs/common"
 import { UserService } from "src/user/user.service"
 
 const spentList = [
@@ -61,8 +61,8 @@ describe("SpentService", () => {
   })
 
   describe("findAll", () => {
-    it("should return an array of users", async () => {
-      const result = await spentService.findAll()
+    it("should return an array spent of users", async () => {
+      const result = await spentService.findAll(1)
 
       expect(result).toEqual(spentList)
       expect(result).toHaveLength(1)

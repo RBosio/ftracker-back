@@ -22,8 +22,14 @@ export class SpentService {
     return this.spentRepository.save(spent)
   }
 
-  async findAll(): Promise<Spent[]> {
-    return this.spentRepository.find()
+  async findAll(userId: number): Promise<Spent[]> {
+    return this.spentRepository.find({
+      where: {
+        user: {
+          id: userId,
+        },
+      },
+    })
   }
 
   async findOne(id: number): Promise<Spent> {
@@ -46,10 +52,8 @@ export class SpentService {
   }
 
   async remove(id: number): Promise<Spent> {
-    const result = await this.spentRepository.softDelete(id)
-    if (result.affected === 0) throw new NotFoundException("spent not foun")
-
     const spent = await this.findOne(id)
+    await this.spentRepository.softDelete(id)
 
     return spent
   }

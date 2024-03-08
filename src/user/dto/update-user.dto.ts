@@ -7,19 +7,19 @@ export class UpdateUserDto {
     example: "Bruce",
     required: false,
   })
-  name: string
+  name?: string
   @ApiProperty({
     name: "surname",
     type: "string",
     example: "Wayne",
     required: false,
   })
-  surname: string
+  surname?: string
   @ApiProperty({
     name: "password",
     type: "string",
     example: "$uperp4ssw0rd",
     required: false,
   })
-  password: string
+  password?: string
 }
