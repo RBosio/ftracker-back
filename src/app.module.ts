@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common"
 import { TypeOrmModule } from "@nestjs/typeorm"
 import { ConfigModule } from "@nestjs/config"
 import { UserModule } from "./user/user.module"
-import { SpentModule } from "./spent/spent.module"
+import { ExpensesModule } from "./expenses/expenses.module"
 import { AuthModule } from "./auth/auth.module"
 
 @Module({
@@ -21,8 +21,8 @@ import { AuthModule } from "./auth/auth.module"
       synchronize: true,
     }),
     UserModule,
-    SpentModule,
-    AuthModule
+    ExpensesModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

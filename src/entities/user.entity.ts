@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
 
-import { Spent } from "./spent.entity"
+import { Expenses } from "./expenses.entity"
 
 @Entity()
 export class User {
@@ -19,8 +19,8 @@ export class User {
   @Column()
   password: string
 
-  @OneToMany(() => Spent, (spent) => spent.user)
-  spents: Spent[]
+  @OneToMany(() => Expenses, (spent) => spent.user)
+  spents: Expenses[]
 
   constructor(user?: Partial<User>) {
     this.id = user?.id

@@ -9,7 +9,7 @@ import {
 import { User } from "./user.entity"
 
 @Entity()
-export class Spent {
+export class Expenses {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -25,7 +25,7 @@ export class Spent {
   @ManyToOne(() => User, (user) => user.spents)
   user: User
 
-  constructor(spent?: Partial<Spent>) {
+  constructor(spent?: Partial<Expenses>) {
     this.id = spent?.id
     this.mount = spent?.mount
     this.description = spent?.description

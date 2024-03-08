@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger"
 
-export class UpdateSpentDto {
+export class UpdateExpensesDto {
   @ApiProperty({
     name: "mount",
     type: "number",
@@ -11,7 +11,7 @@ export class UpdateSpentDto {
   @ApiProperty({
     name: "description",
     type: "string",
-    example: "a simple spent updated",
+    example: "a simple expenses updated",
     required: false,
   })
   description?: string
