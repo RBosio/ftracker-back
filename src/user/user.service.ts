@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common"
+import { BadRequestException, HttpException, HttpStatus, Injectable } from "@nestjs/common"
 import { CreateUserDto } from "./dto/create-user.dto"
 import { UpdateUserDto } from "./dto/update-user.dto"
 import { Repository } from "typeorm"
@@ -13,6 +13,11 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
+    const userFound = await this.findOneByEmail(createUserDto.email)
+    if (userFound) {
+      throw new BadRequestException("email is duplicated")
+    }
+
     const user = this.userRepository.create(createUserDto)
     user.password = await hash(user.password, 8)
 
@@ -27,6 +32,20 @@ export class UserService {
     const user = await this.userRepository.findOne({
       where: {
         id,
+      },
+    })
+
+    if (!user) {
+      throw new HttpException("user not found", HttpStatus.NOT_FOUND)
+    }
+
+    return user
+  }
+
+  async findOneByEmail(email: string): Promise<User> {
+    const user = await this.userRepository.findOne({
+      where: {
+        email,
       },
     })
 
